@@ -3,7 +3,7 @@
 const mongoose = require('mongoose');
 const Item = mongoose.model('Items');
 
-exports.item_index = function(req, res) {
+exports.index = function(req, res) {
   Item.find({}, function(err, item) {
     if (err) {
       res.send(err);
@@ -13,7 +13,7 @@ exports.item_index = function(req, res) {
   });
 };
 
-exports.item_create = function(req, res) {
+exports.create = function(req, res) {
   let newItem = new Item(req.body);
   newItem.save(function(err, item) {
     if (err) {
@@ -24,7 +24,7 @@ exports.item_create = function(req, res) {
   });
 };
 
-exports.item_get = function(req, res) {
+exports.get = function(req, res) {
   Item.findById(req.params.itemId, function(err, item) {
     if (err) {
       res.send(err);
@@ -34,7 +34,7 @@ exports.item_get = function(req, res) {
   });
 };
 
-exports.item_update = function(req, res) {
+exports.update = function(req, res) {
   Item.findOneAndUpdate(
     {_id: req.params.itemId},
     req.body,
@@ -49,7 +49,7 @@ exports.item_update = function(req, res) {
   );
 };
 
-exports.item_delete = function(req, res) {
+exports.delete = function(req, res) {
   Item.remove({_id: req.params.itemId}, function(err, item) {
     if (err) {
       res.send(err);
