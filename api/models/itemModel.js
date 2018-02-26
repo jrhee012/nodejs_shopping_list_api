@@ -16,6 +16,9 @@ let ItemSchema = new Schema({
     type: Number,
     default: 1,
   },
+  shopping_cart_id: {
+    type: String,
+  },
 });
 
 module.exports = mongoose.model('Items', ItemSchema);

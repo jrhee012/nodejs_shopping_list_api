@@ -20,4 +20,8 @@ let ShoppingCartSchema = new Schema({
   },
 });
 
+ShoppingCartSchema.static.findByName = function(name, callback) {
+  return this.find({name: name}, callback);
+};
+
 module.exports = mongoose.model('ShoppingCarts', ShoppingCartSchema);

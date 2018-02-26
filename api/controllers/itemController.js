@@ -2,6 +2,7 @@
 
 const mongoose = require('mongoose');
 const Item = mongoose.model('Items');
+const ShoppingCart = mongoose.model('ShoppingCarts');
 
 exports.index = function(req, res) {
   Item.find({}, function(err, item) {
@@ -14,12 +15,27 @@ exports.index = function(req, res) {
 };
 
 exports.create = function(req, res) {
-  let newItem = new Item(req.body);
-  newItem.save(function(err, item) {
+  let params = req.body;
+  let shoppingCartName = params.shopping_cart_name;
+  let shoppingCartId;
+
+  ShoppingCart.findByName(shoppingCartName, function(err, shoppingCart) {
     if (err) {
-      res.send(err);
+      console.log(err);
+      res.send('Shopping cart does not exist. Create a new shopping cart or use an existing one.');
     } else {
-      res.json(item);
+      shoppingCartId = shoppingCart.id;
+      let newItem = new Item();
+      newItem.name = params.name;
+      newItem.amount = params.amount;
+      newItem.shopping_cart_id = shoppingCartId;
+      newItem.save(function(err, item) {
+        if (err) {
+          res.send(err);
+        } else {
+          res.json(item);
+        }
+      });
     }
   });
 };
