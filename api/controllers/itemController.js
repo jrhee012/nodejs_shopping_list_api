@@ -41,7 +41,7 @@ exports.create = function(req, res) {
 };
 
 exports.get = function(req, res) {
-  Item.findById(req.params.itemId, function(err, item) {
+  Item.findById(req.params.item_id, function(err, item) {
     if (err) {
       res.send(err);
     } else {
@@ -52,7 +52,7 @@ exports.get = function(req, res) {
 
 exports.update = function(req, res) {
   Item.findOneAndUpdate(
-    {_id: req.params.itemId},
+    {_id: req.params.item_id},
     req.body,
     {new: true},
     function(err, item) {
@@ -66,7 +66,7 @@ exports.update = function(req, res) {
 };
 
 exports.delete = function(req, res) {
-  Item.remove({_id: req.params.itemId}, function(err, item) {
+  Item.remove({_id: req.params.item_id}, function(err, item) {
     if (err) {
       res.send(err);
     } else {
