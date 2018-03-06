@@ -14,17 +14,6 @@ exports.index = function(req, res) {
   });
 };
 
-// exports.create = function(req, res) {
-//   let newShoppingCart = new ShoppingCart(req.body);
-//   newShoppingCart.save(function(err, item) {
-//     if (err) {
-//       res.send(err);
-//     } else {
-//       res.json(item);
-//     }
-//   });
-// };
-
 exports.create = function(req, res) {
   let params = req.body;
   let locationName = params.location_name;
@@ -38,7 +27,7 @@ exports.create = function(req, res) {
       locationId = location.id;
       let newShoppingCart = new ShoppingCart();
       newShoppingCart.name = params.name;
-      newShoppingCart.amount = params.amount;
+      newShoppingCart.type = params.type;
       newShoppingCart.location_id = locationId;
       newShoppingCart.save(function(err, shoppingCart) {
         if (err) {
@@ -52,11 +41,11 @@ exports.create = function(req, res) {
 };
 
 exports.get = function(req, res) {
-  ShoppingCart.findById(req.params.shopping_cart_id, function(err, item) {
+  ShoppingCart.findById(req.params.shopping_cart_id, function(err, shoppingCart) {
     if (err) {
       res.send(err);
     } else {
-      res.json(item);
+      res.json(shoppingCart);
     }
   });
 };
@@ -66,18 +55,18 @@ exports.update = function(req, res) {
     {_id: req.params.shopping_cart_id},
     req.body,
     {new: true},
-    function(err, item) {
+    function(err, shoppingCart) {
       if (err) {
         res.send(err);
       } else {
-        res.json(item);
+        res.json(shoppingCart);
       }
     }
   );
 };
 
 exports.delete = function(req, res) {
-  ShoppingCart.remove({_id: req.params.shopping_cart_id}, function(err, item) {
+  ShoppingCart.remove({_id: req.params.shopping_cart_id}, function(err, shoppingCart) {
     if (err) {
       res.send(err);
     } else {

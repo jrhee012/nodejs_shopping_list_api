@@ -15,7 +15,7 @@ let ShoppingCartSchema = new Schema({
   type: {
     type: String,
   },
-  location: {
+  location_id: {
     type: String,
   },
 });
